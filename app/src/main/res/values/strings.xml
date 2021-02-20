@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">FotoFinder</string>
+    <string name="search">Search photos</string>
+    <string name="publishedDate">Published: %s</string>
+    <string name="likesCount">Likes: %d</string>
+    <string name="sampleBio">Could you find the universe in a drop of acrylic paint? \r\nCheckout my photos here and say hello @solenfeyissa on twitter.</string>
+    <string name="myPhotosLabel">My photos(%d)</string>
+    <string name="socialMedia">\@%s</string>
+    <string name="defaultTopic">Unsplash Picks</string>
+    <string name="profileImageContentDescription">User profile image</string>
+    <string name="btnDownloadText">Download</string>
+    <string name="bioLabel">Bio:</string>
+    <string name="imageDefaultDescription">set description when loading image</string>
+    <string name="storagePermissionDialogTitle">Storage Permission</string>
+    <string name="storagePermissionDialogMessage">This app requires access to the device storage to download photos. Tap \'Permissions\' on the next page to grant permission.</string>
+    <string name="networkErrorDialogTitle">Network Error</string>
+    <string name="networkErrorDialogMessage">Please check your internet connection.</string>
+    <string name="noResultsMessage">Oh no!\nYour search did not match any photos.</string>
+    <string name="loadErrorMessage">Oh no!\nAn error occurred. Please try again.</string>
+</resources>

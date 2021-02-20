@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.gallery.GalleryFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp"
+            android:background="@drawable/rounded_search_bar"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search photos"
+                app:iconifiedByDefault="false" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <HorizontalScrollView
+            android:id="@+id/hsv"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/topicChipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/galleryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/photo_item"
+        tools:itemCount="4"
+        android:paddingBottom="8dp"
+        android:paddingEnd="8dp"
+        android:clipToPadding="false"
+        android:background="@color/black"
+        />
+
+    <ProgressBar
+        android:id="@+id/loadingAnim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/noResultsMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/noResultsMessage"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loadErrorMessage"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:visibility="gone"
+        />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
