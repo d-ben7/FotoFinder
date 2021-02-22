@@ -3,16 +3,14 @@
 
 FotoFinder is a small demo application that let users browse and download free photos from Unsplash.
 
-<img src="https://github.com/d-ben7/FotoFinder/blob/master/screenshots/screenshot1.png" align="left" width="300">
-<img src="https://github.com/d-ben7/FotoFinder/blob/master/screenshots/screenshot2.png" align="left" width="300">
-<img src="https://github.com/d-ben7/FotoFinder/blob/master/screenshots/screenshot3.png" width="300">
+<img src="https://github.com/d-ben7/FotoFinder/blob/master/screenshots/screenshot.png">
 
 ## Tech-stacks & 3rd party libraries
 - [Kotlin](https://kotlinlang.org/)  + [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous tasks
 - Android JetPack
   - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - dependency injection
   - [Navigation](https://developer.android.com/guide/navigation/navigation-getting-started) - fragments management 
-  - [ViewBinding](https://developer.android.com/topic/libraries/view-binding) - replaces findViewById()
+  - [ViewBinding](https://developer.android.com/topic/libraries/view-binding) - generate binding classes for xml layouts, to interact with the views
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - observable data holder for views
   - [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle) - lifecycle aware components
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - store and manage UI-related data in a lifecycle conscious way
@@ -29,7 +27,8 @@ FotoFinder is a small demo application that let users browse and download free p
 
 FotoFinder is based on the MVVM architecture and a repository pattern. More info about this recommended app architecture from Google [here](https://developer.android.com/jetpack/guide).
 
-![architecture](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
+<img src="https://developer.android.com/topic/libraries/architecture/images/final-architecture.png" width="600">
+
 ## Unsplash API
 
 The [Official Unsplash API](https://unsplash.com/developers)
