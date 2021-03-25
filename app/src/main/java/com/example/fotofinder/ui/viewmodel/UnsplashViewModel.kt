@@ -12,8 +12,16 @@ import com.example.fotofinder.util.SearchOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+// Keys for the SaveStateHandle
+private const val SEARCH_OPTION_KEY = "SEARCH_OPTION_KEY"
+private const val QUERY_KEY = "QUERY_KEY"
+private const val USER_ID_KEY = "USER_ID_KEY"
+
 @HiltViewModel
-class UnsplashViewModel @Inject constructor(private val repository: UnsplashRepository) : ViewModel() {
+class UnsplashViewModel @Inject constructor(
+    private val repository: UnsplashRepository,
+    private val saveStateHandle: SavedStateHandle
+    ) : ViewModel() {
 
     // photos for the main gallery
     private val _mainGalleryPhotos = MediatorLiveData<PagingData<UnsplashResponse.Photo>>()
@@ -42,7 +50,20 @@ class UnsplashViewModel @Inject constructor(private val repository: UnsplashRepo
 
     init {
         _activeTopicChipKey.value = App.getContext().resources.getString(R.string.defaultTopic)
-        fetchPhotos(SearchOptions.TOP_PICKS)
+
+        // If process death occurs, then retrieve the last SearchOption and query to fetch photos
+        // and restore the main gallery. Otherwise fetch the TOP PICKS photos for the main gallery
+        val mainGallerySearchOption = saveStateHandle.get<SearchOptions>(SEARCH_OPTION_KEY) ?: SearchOptions.TOP_PICKS
+        val mainGalleryQuery = saveStateHandle.get<String>(QUERY_KEY) // contains search term or null
+        fetchPhotos(mainGallerySearchOption, mainGalleryQuery)
+
+        // If process death occurs when user gallery was populated, then retrieve that user's ID to
+        // fetch the user photos and restore the user gallery. Otherwise, do nothing
+        val userId = saveStateHandle.get<String>(USER_ID_KEY)
+        userId?.let { id ->
+            fetchPhotos(SearchOptions.USER, id)
+        }
+
     }
 
     /**
@@ -51,6 +72,8 @@ class UnsplashViewModel @Inject constructor(private val repository: UnsplashRepo
      * @param query - optional query (eg. user id, topic id, or search terms)
      */
     fun fetchPhotos(searchOption: SearchOptions, query: String? = null) {
+        updateSaveStateHandle(searchOption, query)
+
         // check network connection first
         if (NetworkStatusHelper.isNetworkAvailable()) {
             val data = repository.getUnsplashPhotos(searchOption, query)
@@ -68,6 +91,22 @@ class UnsplashViewModel @Inject constructor(private val repository: UnsplashRepo
             }
         }
 
+    }
+
+    /**
+     * Update the keys in SaveStateHandle for process death handling
+     * @param searchOption The latest SearchOption
+     * @param query The optional search terms or the user's ID if searchOption is SearchOption.USER
+     */
+    private fun updateSaveStateHandle(searchOption: SearchOptions, query: String?) {
+        if (searchOption == SearchOptions.USER) {
+            // Save the latest user ID
+            saveStateHandle[USER_ID_KEY] = query // user ID
+        } else {
+            // Save the latest SearchOption and query
+            saveStateHandle[SEARCH_OPTION_KEY] = searchOption
+            saveStateHandle[QUERY_KEY] = query // contain search terms if not null
+        }
     }
 
     /**
