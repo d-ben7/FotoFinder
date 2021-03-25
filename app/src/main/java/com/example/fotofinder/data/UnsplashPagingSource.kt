@@ -10,7 +10,7 @@ import java.io.IOException
 import retrofit2.HttpException
 
 class UnsplashPagingSource(
-    private val searchOptions: SearchOptions,
+    private val searchOption: SearchOptions,
     private val query: String?,
     private val unsplashService: UnsplashService) : PagingSource<Int, UnsplashResponse.Photo>() {
 
@@ -21,13 +21,13 @@ class UnsplashPagingSource(
             var photos = listOf<UnsplashResponse.Photo>()
 
             // switch endpoints according to the search option
-            when(searchOptions) {
+            when(searchOption) {
                 SearchOptions.TOP_PICKS -> {
                     photos = unsplashService.getPhotosByTopPicks(page, params.loadSize)
                 }
-                SearchOptions.TAG -> {
+                SearchOptions.SEARCH_TERMS -> {
                     query?.let { tag ->
-                        photos = unsplashService.getPhotosByTags(tag, page, params.loadSize).results
+                        photos = unsplashService.getPhotosBySearchTerms(tag, page, params.loadSize).results
                     }
                 }
                 SearchOptions.TOPIC -> {

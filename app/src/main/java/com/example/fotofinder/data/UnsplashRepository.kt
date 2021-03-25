@@ -19,13 +19,13 @@ class UnsplashRepository @Inject constructor(private val unsplashService: Unspla
 
     /**
      * Fetch Unsplash photos from network
-     * @param searchOptions - type of endpoints
+     * @param searchOption - type of endpoints
      * @param query - optional query (eg. user id, topic id, or search terms)
      */
-    fun getUnsplashPhotos(searchOptions: SearchOptions, query: String?): LiveData<PagingData<UnsplashResponse.Photo>> {
+    fun getUnsplashPhotos(searchOption: SearchOptions, query: String?): LiveData<PagingData<UnsplashResponse.Photo>> {
         return Pager(
             config = PagingConfig(pageSize = DEFAULT_PAGE_SIZE, enablePlaceholders = false),
-            pagingSourceFactory = { UnsplashPagingSource(searchOptions, query, unsplashService) }
+            pagingSourceFactory = { UnsplashPagingSource(searchOption, query, unsplashService) }
         ).liveData
     }
 

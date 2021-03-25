@@ -80,7 +80,7 @@ class GalleryFragment : Fragment(), PhotoAdapter.OnItemClickListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 binding.topicChipGroup.clearCheck()
                 unsplashViewModel.setActiveChipKey(null)
-                unsplashViewModel.fetchPhotos(SearchOptions.TAG, query)
+                unsplashViewModel.fetchPhotos(SearchOptions.SEARCH_TERMS, query)
                 return false
             }
 

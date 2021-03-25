@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -116,7 +117,7 @@ class PhotoFragment : Fragment() {
      * Create bitmap from image url. If successful, proceed to save bitmap to device storage
      */
     private fun createBitmap() {
-        setDownloadProgressVisibility(true)
+        binding.downloadProgress.isVisible = true
         lifecycleScope.launch {
             val fileName = "Unsplash-${photo.id}.jpg"
             val imageLoader = requireContext().imageLoader
@@ -126,21 +127,7 @@ class PhotoFragment : Fragment() {
                 saveImage(bitmap, fileName)
             }
             withContext(Dispatchers.Main) {
-                setDownloadProgressVisibility(false)
-            }
-        }
-    }
-
-    /**
-     * Set download progress animation visibility
-     * @param isVisible play/show progress animation when true, otherwise stop/hide animation
-     */
-    private fun setDownloadProgressVisibility(isVisible: Boolean) {
-        binding.downloadProgress.apply {
-            visibility = if (isVisible) {
-                View.VISIBLE
-            } else {
-                View.GONE
+                binding.downloadProgress.isVisible = false
             }
         }
     }
@@ -187,8 +174,7 @@ class PhotoFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        // set to null to avoid leaks
-        _binding = null
+        _binding = null // set to null to avoid leaks
         super.onDestroyView()
     }
 

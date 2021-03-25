@@ -20,8 +20,8 @@ interface UnsplashService {
      */
     @Headers("Accept-Version: v1", "Authorization: Client-ID $CLIENT_ID")
     @GET("search/photos")
-    suspend fun getPhotosByTags(
-        @Query("query") tags: String,
+    suspend fun getPhotosBySearchTerms(
+        @Query("query") searchTerms: String,
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
     ): UnsplashResponse

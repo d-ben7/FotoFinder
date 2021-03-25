@@ -50,7 +50,7 @@ class UnsplashViewModel @Inject constructor(private val repository: UnsplashRepo
                 .cachedIn(viewModelScope)
 
             // update gallery photos
-            if (searchOption is SearchOptions.USER) {
+            if (searchOption == SearchOptions.USER) {
                 _userGalleryPhotos.addSource(data) { photos ->
                     _userGalleryPhotos.value = photos
                 }
